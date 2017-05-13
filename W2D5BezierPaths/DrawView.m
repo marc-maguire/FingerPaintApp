@@ -49,21 +49,21 @@
     [red setStroke];
     
     //why does example from class check if the points are equal? same performance if you skip.
-//    for (DrawPoints *points in self.touchesArray) {
-//        if (CGPointEqualToPoint(points.firstPoint, points.secondPoint)) {
-//            [bezierPath moveToPoint:points.firstPoint];
-//            continue;
-//        }
-//        [bezierPath addLineToPoint:points.secondPoint];
-//    }
-//    [bezierPath stroke];
-    
-        for (DrawPoints *points in self.touchesArray) {
+    for (DrawPoints *points in self.touchesArray) {
+        if (CGPointEqualToPoint(points.firstPoint, points.secondPoint)) {
             [bezierPath moveToPoint:points.firstPoint];
-            [bezierPath addLineToPoint:points.secondPoint];
-       
+            continue;
         }
-        [bezierPath stroke];
+        [bezierPath addLineToPoint:points.secondPoint];
+    }
+    [bezierPath stroke];
+//
+//        for (DrawPoints *points in self.touchesArray) {
+//            [bezierPath moveToPoint:points.firstPoint];
+//            [bezierPath addLineToPoint:points.secondPoint];
+//       
+//        }
+//        [bezierPath stroke];
     //LEARNING - set the path and lines first, then stroke all at once.
     
     
@@ -88,18 +88,18 @@
     
 }
 
-//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    NSLog(@"touches began");
-//    UITouch *touch = touches.anyObject;
-//    CGPoint first = [touch previousLocationInView:self];
-//    DrawPoints *point = [[DrawPoints alloc]initWithPointA:first andPointB:first];
-//    [self.touchesArray addObject:point];
-//    [self setNeedsDisplay];
-//    
-//    NSLog(@"touch began at %@",NSStringFromCGPoint(first));
-//    
-//
-//}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSLog(@"touches began");
+    UITouch *touch = touches.anyObject;
+    CGPoint first = [touch previousLocationInView:self];
+    DrawPoints *point = [[DrawPoints alloc]initWithPointA:first andPointB:first];
+    [self.touchesArray addObject:point];
+    [self setNeedsDisplay];
+    
+    NSLog(@"touch began at %@",NSStringFromCGPoint(first));
+    
+
+}
 
 
 @end
