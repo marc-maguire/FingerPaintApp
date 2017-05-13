@@ -32,17 +32,39 @@
 - (void)drawRect:(CGRect)rect {
     //get context, set stroke colour, loop through the array of points of move to the first point in your set, then add a line from first point to the second point, and stroke it.
 
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
+//    
+//    for (DrawPoints *drawPoint in self.touchesArray) {
+//        CGContextMoveToPoint(context, drawPoint.firstPoint.x, drawPoint.firstPoint.y);
+//        CGContextAddLineToPoint(context, drawPoint.secondPoint.x, drawPoint.secondPoint.y);
+//        CGContextStrokePath(context);
+//    }
     
-    for (DrawPoints *drawPoint in self.touchesArray) {
-        CGContextMoveToPoint(context, drawPoint.firstPoint.x, drawPoint.firstPoint.y);
-        CGContextAddLineToPoint(context, drawPoint.secondPoint.x, drawPoint.secondPoint.y);
-        CGContextStrokePath(context);
-    }
+    //try to do it with bezier path
+    UIBezierPath *bezierPath = [UIBezierPath bezierPath];
+    bezierPath.lineWidth = 3.0;
+    bezierPath.lineCapStyle = kCGLineCapRound;
+    UIColor *red = [UIColor redColor];
+    [red setStroke];
     
+    //why does example from class check if the points are equal? same performance if you skip.
+//    for (DrawPoints *points in self.touchesArray) {
+//        if (CGPointEqualToPoint(points.firstPoint, points.secondPoint)) {
+//            [bezierPath moveToPoint:points.firstPoint];
+//            continue;
+//        }
+//        [bezierPath addLineToPoint:points.secondPoint];
+//    }
+//    [bezierPath stroke];
     
-    
+        for (DrawPoints *points in self.touchesArray) {
+            [bezierPath moveToPoint:points.firstPoint];
+            [bezierPath addLineToPoint:points.secondPoint];
+       
+        }
+        [bezierPath stroke];
+    //LEARNING - set the path and lines first, then stroke all at once.
     
     
 }
@@ -66,15 +88,18 @@
     
 }
 
-//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    NSLog(@"touches began");
-//    UITouch *touch = touches.anyObject;
-//    CGPoint first = [touch previousLocationInView:self];
-//    
-//    NSLog(@"touch began at %@",NSStringFromCGPoint(first));
-//    
-//
-//}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSLog(@"touches began");
+    UITouch *touch = touches.anyObject;
+    CGPoint first = [touch previousLocationInView:self];
+    DrawPoints *point = [[DrawPoints alloc]initWithPointA:first andPointB:first];
+    [self.touchesArray addObject:point];
+    [self setNeedsDisplay];
+    
+    NSLog(@"touch began at %@",NSStringFromCGPoint(first));
+    
+
+}
 
 
 @end
