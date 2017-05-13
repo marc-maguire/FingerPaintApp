@@ -30,7 +30,8 @@
 
 
 - (void)drawRect:(CGRect)rect {
-    //draw from point 1 to point 2
+    //get context, set stroke colour, loop through the array of points of move to the first point in your set, then add a line from first point to the second point, and stroke it.
+
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
     
@@ -39,12 +40,17 @@
         CGContextAddLineToPoint(context, drawPoint.secondPoint.x, drawPoint.secondPoint.y);
         CGContextStrokePath(context);
     }
+    
+    
+    
+    
+    
 }
-//    CGContextAddLines(context, points, 2);
-//    CGContextStrokeLineSegments(context, points, 2);
-
 
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    //get touches from input of touchesMoved, get a reference to it.
+    //make first point the previous point, second point the current point, add that object to the array and redraw by setNeedsDisplay
+    
     
     UITouch *touch = touches.anyObject;
     CGPoint first = [touch previousLocationInView:self];
@@ -60,15 +66,15 @@
     
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSLog(@"touches began");
-    UITouch *touch = touches.anyObject;
-    CGPoint first = [touch previousLocationInView:self];
-    
-    NSLog(@"touch began at %@",NSStringFromCGPoint(first));
-    
-
-}
+//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    NSLog(@"touches began");
+//    UITouch *touch = touches.anyObject;
+//    CGPoint first = [touch previousLocationInView:self];
+//    
+//    NSLog(@"touch began at %@",NSStringFromCGPoint(first));
+//    
+//
+//}
 
 
 @end
