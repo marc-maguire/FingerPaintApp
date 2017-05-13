@@ -88,18 +88,18 @@
     
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSLog(@"touches began");
-    UITouch *touch = touches.anyObject;
-    CGPoint first = [touch previousLocationInView:self];
-    DrawPoints *point = [[DrawPoints alloc]initWithPointA:first andPointB:first];
-    [self.touchesArray addObject:point];
-    [self setNeedsDisplay];
-    
-    NSLog(@"touch began at %@",NSStringFromCGPoint(first));
-    
-
-}
+//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    NSLog(@"touches began");
+//    UITouch *touch = touches.anyObject;
+//    CGPoint first = [touch previousLocationInView:self];
+//    DrawPoints *point = [[DrawPoints alloc]initWithPointA:first andPointB:first];
+//    [self.touchesArray addObject:point];
+//    [self setNeedsDisplay];
+//    
+//    NSLog(@"touch began at %@",NSStringFromCGPoint(first));
+//    
+//
+//}
 
 
 @end
